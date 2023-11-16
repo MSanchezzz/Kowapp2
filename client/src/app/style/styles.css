@@ -1,0 +1,1418 @@
+body {
+  font-family: 'Arial', sans-serif;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+}
+
+h2 {
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  color: #040E3B;
+  margin-bottom: 2rem;
+}
+
+.form-title-register-tutor {
+  justify-content: center;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  color: #040E3B;
+  font-size: large;
+  margin-bottom: 1rem;
+}
+
+.welcome-div-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.index-div-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.index-div-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  margin: 0;
+}
+
+.background-register-tutor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  background-color: whitesmoke;
+  padding: 1rem;
+  min-height: 100vh;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.background-login-tutor{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  background-color: whitesmoke;
+  padding: 1rem;
+  min-height: 100vh;
+}
+
+/* Estilos para la interfaz screenTutor */
+
+.background-screen-tutor {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
+  background: linear-gradient(to bottom, #25356D, #4565B0);
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  background-color: #17223B; /* Color de fondo para la sección del perfil */
+  border-radius: 20px; /* Bordes redondeados */
+  padding: 10px;
+  margin-bottom: 10px; /* Espacio entre perfil y botones de acción */
+  width: 100%; /* Ocupa todo el ancho disponible */
+}
+
+.profile-pic {
+  width: 50px; /* Tamaño de la imagen de perfil */
+  height: 50px;
+  border-radius: 50%; /* Hace que la imagen sea circular */
+  margin-right: 10px; /* Espacio entre imagen y texto */
+}
+
+.user-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex: 1; /* Asegura que el texto se mantenga en una sola línea */
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.user-info-detail {
+  display: flex;
+  font-size: 12px;
+  font-weight: bold;
+  flex: auto;
+  color: white;
+  flex-direction: column; /* Organiza el contenido en columnas */
+  align-items: center; /* Centra los elementos horizontalmente */
+  align-self: center;
+  
+}
+
+/* Estilos para los botones de acción del usuario */
+.user-action-buttons {
+  display: flex;
+  justify-content: space-evenly; /* Distribuye los botones uniformemente */
+  width: 100%; /* Ocupa todo el ancho disponible */
+}
+
+.user-action-button {
+  background-color: #ffffff; /* Fondo blanco para botones */
+  border-radius: 10px; /* Bordes redondeados para botones */
+  padding: 5px 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra suave para botones */
+  font-size: 12px;
+}
+
+.header-icons {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  position: absolute; /* Asegúrate de que los iconos estén en la parte superior */
+  width: 100%; /* Extiende la barra a lo ancho de la pantalla */
+  top: 0; /* Posición fija en la parte superior */
+  z-index: 10; /* Asegura que la barra esté sobre otros elementos */
+}
+
+.icon-settings img{
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  right: 0;
+  margin-right: 15px;
+}
+
+.map-container {
+  flex-grow: 1;
+  /* Agrega aquí los estilos para el contenedor del mapa */
+}
+
+.user-info {
+  position: absolute;
+  bottom: 70px; /* Coloca la información del usuario arriba de la barra de navegación */
+  right: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  color: black;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Sombra para resaltar */
+}
+
+.nav-icon {
+  width: 30px;
+  height: 30px;
+  margin: 0 10px;
+  cursor: pointer; /* Cambia el cursor al pasar sobre los íconos */
+}
+
+/* Estilos para la barra de navegación inferior */
+.nav-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to bottom, #25356D, #4565B0);
+  border-top-left-radius: 30px; /* Bordes redondeados en la parte superior */
+  border-top-right-radius: 30px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3); /* Sombra suave */
+  display: flex;
+  flex-direction: column; /* Organiza el contenido en columnas */
+  align-items: center; /* Centra los elementos horizontalmente */
+  padding: 10px;
+  z-index: 10; /* Asegúrate de que la barra esté sobre otros elementos */
+}
+
+/* Estilos para los botones de navegación, incluyendo los íconos y el texto */
+.nav-button {
+  flex-direction: column; /* Íconos sobre texto */
+  align-items: center; /* Centrado horizontal */
+  display: flex;
+  flex: 1; /* Divide el espacio equitativamente entre botones */
+}
+
+.nav-button-text {
+  font-size: 12px; /* Tamaño del texto debajo del ícono */
+  color: #000000; /* Color de texto */
+}
+
+.button-connection, .button-accept {
+  flex-basis: 50%; /* Divide el ancho de la barra en dos */
+  text-align: center; /* Centra el contenido */
+}
+
+.button-connection img, .button-accept img {
+  width: 50px; /* Ajusta el tamaño de tus imágenes según sea necesario */
+  height: auto; /* Mantiene la proporción de las imágenes */
+  cursor: pointer; /* Cambia el cursor al pasar sobre los botones */
+}
+
+/**********************************************/
+
+.logoKowapp{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rofile-conductor-volver{
+  text-align: left;
+}
+.button-cancelar{
+  margin-bottom: 20px;
+  background-color: #FFA300;
+  box-shadow: 0px 5px 8px #666666;
+  border-radius: 45px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 20px;
+}
+
+.div-select-pais-number{
+  display: flex;
+}
+
+.select-pais-number{
+  color: black;
+  box-sizing: border-box;
+  width: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-radius: 30px;
+  text-align: center;
+  font-size: 14px;
+  margin-right: 1rem;
+  background-position: 10px center;  /* Actualizado */
+  background-color: whitesmoke;
+}
+
+.div-button-login{
+  display: flex;
+  justify-content: center;
+  margin-right: 40px;
+}
+
+.div-button-registro{
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.button-inicar{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #040E3B;
+  box-shadow: 0px 5px 8px #666666;
+  color: #ffffff;
+  border-radius: 45px;
+  padding-left: 30px;
+  padding-right: 55px;
+  padding-bottom: 20px;
+}
+
+.logoKowapp {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+.button-cancelar, .button-inicar, .registro-button, .role-button-driver, .role-button-tutor, .login-button {
+  font-family: 'Arial', sans-serif;
+  color: #ffffff;
+  border-color: #080008;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #040E3B; /* Color base */
+  padding: 12px 25px; 
+  text-align: center; 
+  text-decoration: none; 
+  font-size: 16px;
+  margin: 10px 2px;
+  border-radius: 50px; /* Bordes redondeados */
+  box-shadow: 0 4px #999; /* Efecto de sombra para dar sensación de "presionado" */
+  transition: all 0.3s; /* Transición suave */
+  width: 10rem;
+}
+
+.registro-button:hover, .login-button:hover {
+  background-color: #19254f; /* Color más oscuro cuando se pasa el mouse */
+}
+
+.registro-button:active, .login-button:active {
+  background-color: #25356D; 
+  box-shadow: 0 5px #666; 
+  transform: translateY(4px); /* Mueve el botón un poco hacia abajo cuando se presiona */
+}
+
+.button-cancelar {
+  margin-bottom: 20rem;
+  background-color: #FFA300;
+}
+
+.button-inicar {
+  margin: 20px 0;
+  background-color: #040E3B;
+}
+
+.form-login, .registration-container-driver, .registration-container-tutor{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  border-radius: 35px;
+  color: white;
+  background-color: #FFA300;
+  box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.5);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.registration-container-driver input, .registration-container-tutor input, .form-login input {
+  color: black;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 30px;
+  padding: 0.7rem;
+  font-size: 14px;
+}
+
+.register-button{
+  padding-bottom: 25rem;
+  align-content: center;
+}
+
+.titulo-role{
+  font-size: 36;
+  text-align: center;
+  color: #080008;
+}
+.titulo-role-2{
+  color: #FFA300;
+}
+.titulo-role-3{
+  padding-top: 30px;
+  padding-bottom: 30px;
+  color: #040E3B;
+}
+.titulo-role-4{
+  font-size: 36;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: #080008;
+}
+.screen-driver-navegacion{
+  height: 50px;
+  width: 100%;
+  background-color: #FFA300;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.screen-driver-contenedor-option {
+  position: relative;
+  background-color: #FFA300;
+  height: 50px;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+
+.screen-driver-contenedor-widows {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #FFA300;
+  border: 1px;
+  height: 230px;
+  padding: 10px;
+  animation: slideIn 0.3s ease-in-out;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.back-button{
+  width: 50px;
+  height: 50px;
+}
+.content-schools{
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.content-schools img{
+  width: 60%;
+  height: 60%;
+}
+.content-schools h1{
+  font-size: 2em;
+  font-weight: bold;
+}
+.screen-driver-option{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #FFA300;
+}
+.screen-driver-option td{
+  text-align: center;
+  justify-content: center;
+  padding-bottom: 10px;
+  margin-left: 50px;
+}
+.backgraund-option-driver{
+  justify-content: center;
+  background-color:#FFA300;
+  height: 100%;
+  width: 100%;
+}
+.list-student-Call{
+  background-color: #FFA300;
+  height: 100vh;
+}
+
+.edit-route-Call{
+  background-color: #FFA300;
+  height: 100vh;
+}
+.screen-driver-estadistic{
+  background-color:  #666666;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: row;
+  color: #ffffff;
+}
+.screen-driver-estadistic p{
+  margin-left: 50px;
+}
+.list-student-content{
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-radius: 45px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: #a3a3a3;
+}
+.edit-route-content{
+  padding-bottom: 40px;
+  margin-bottom: 10px;
+  border-radius: 45px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: #a3a3a3;
+}
+.list-student{
+  display: flex;
+  flex-direction: row;
+}
+.profile-conductor-info{
+  background-color: #FFA300;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+}
+.profile-conductor-table-info{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh; 
+}
+.profile-conductor-table-info th, td {
+  border: 1px;
+  padding: 8px;
+  text-align: left;
+}
+.profile-conductor-navegation{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+}
+
+.help-text {
+  display: flex;
+  font-size: 0.8rem;
+  color: #666;
+  padding: 4px;
+  width: 100%;
+}
+
+.error-message {
+  color: red;
+  font-weight: 450;
+}
+
+/* Estilo para los mensajes de error */
+.error-message-inline {
+    font-weight: normal; /* Mensaje de error con peso de fuente normal para no ser demasiado dominante */
+    color: red;
+    font-size: 0.9em;
+    visibility: hidden;
+    opacity: 0;
+    margin-left: 0.3rem;
+}
+
+.input-field-container {
+  width: 100%;
+}
+
+
+.message-container {
+  margin-bottom: 20px;
+}
+
+.input-verify-email {
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+}
+
+.success-message {
+  color: green;
+  text-align: center;
+}
+
+/* Estilo para los campos de entrada */
+input {
+  border: 1px solid #ccc; /* Borde más claro */
+  height: 40px; /* Altura reducida */
+}
+
+/* Estilo para campos con error */
+input.error {
+  border-color: red;
+  background-color: #ffe5e5; /* Fondo rojizo pálido para campos con error */
+}
+
+.form-container {
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.error-message-inline {
+  display: block; /* Mostrar el mensaje de error debajo del campo de entrada */
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Media queries */
+@media (max-width: 6000px) {
+  .background-register-tutor{
+    padding-left: 40%;
+    padding-right: 40%;
+  }
+  .background-login-tutor {
+    padding-left: 40%;
+    padding-right: 40%;
+  }
+}
+
+@media (max-width: 1900px) {
+  .background-register-tutor {
+    padding-left: 30%;
+    padding-right: 30%;
+  }
+  .background-login-tutor {
+    padding-left: 30%;
+    padding-right: 30%;
+  }
+}
+
+@media (max-width: 1900px) {
+  .background-register-tutor{
+    padding-left: 30%;
+    padding-right: 30%;
+  }
+  .background-login-tutor {
+    padding-left: 30%;
+    padding-right: 30%;
+  }
+}
+
+@media (max-width: 1500px) {
+  .background-register-tutor {
+    padding-left: 30%;
+    padding-right: 30%;
+    margin-top: -2%;
+  }
+  .background-login-tutor {
+    padding-left: 30%;
+    padding-right: 30%;
+  }
+}
+
+@media (max-width: 1400px) {
+  .background-register-tutor {
+    padding-left: 25%;
+    padding-right: 25%;
+    margin-top: -10%;
+  }
+  .background-login-tutor {
+    padding-left: 25%;
+    padding-right: 25%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .background-register-tutor {
+    padding-left: 25%;
+    padding-right: 25%;
+    margin-top: -10%;
+  }
+  .background-login-tutor {
+    padding-left: 25%;
+    padding-right: 25%;
+  }
+}
+
+@media (max-width: 1100px) {
+  .background-register-tutor {
+    padding-left: 20%;
+    padding-right: 20%;
+    margin-top: -10%;
+  }
+  .background-login-tutor {
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+}
+
+@media (max-width: 900px) {
+  .background-register-tutor {
+    padding-left: 15%;
+    padding-right: 15%;
+    margin-top: -10%;
+  }
+  .background-login-tutor {
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+}
+
+@media (max-width: 800px) {
+  .background-register-tutor {
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-top: -10%;
+  }
+  .background-login-tutor {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+}
+
+@media (max-width: 700px) {
+  .background-register-tutor {
+    padding-left: 7%;
+    padding-right: 7%;
+    margin-top: -7%;
+  }
+  .background-login-tutor {
+    padding-left: 7%;
+    padding-right: 7%;
+  }
+}
+
+@media (max-width: 600px) {
+  .background-register-tutor {
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-top: -10%;
+  }
+  .input-field-container {
+    width: 100%;
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+  .background-login-tutor {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+}
+
+@media (max-width: 480px) {
+  .registration-container-tutor {
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+  .background-login-tutor {
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+}
+
+.form-title-register-driver, .form-title-register-tutor{
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+.form-title-register-driver h1{
+  font-weight: bold;
+  font-size: 16pt;
+}
+.button-back{
+  width: 50px;
+  height: 50px;
+}
+.title{
+  text-align: center;
+  flex: 1;
+}
+.button-up, .button-down{
+  width: 100px;
+  height: 50px;
+}
+.button-tools{
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+}
+.definition-role{
+  display: flex;
+  flex-direction: row;
+}
+.definition-driver-tutor{
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+}
+.definition-driver-tutor p{
+  margin-left: 10px;
+}
+.definition-driver-tutor img{
+  width: 50px;
+  height: 50px;
+}
+
+/* Estilos para el perfil del tutor */
+.profile-tutor-container {
+  display: block;
+  align-content: center;
+  background: linear-gradient(45deg, #25356D, #4565B0); /* Degradado de azul */
+  color: #ffffff;
+  box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;  
+  margin: 0;
+}
+
+.profile-tutor-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-tutor-options-header {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px;
+}
+
+.back-icon {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+.profile-tutor-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.subtitle-info-profile {
+  color: black;
+  font-weight: bold;
+}
+
+.perfil-tutor-stars-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.star-image{
+  padding-bottom: 2px;
+  margin-left: 6px;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.nombre-perfil-usuario{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.title {
+  margin-bottom: 4px; /* Ajusta este valor según sea necesario */
+}
+
+.description {
+  font-size: 1.1em;
+}
+
+
+.profile-tutor-info, .contact-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.profile-tutor-actions { /* Estilos para el div que encierra los botones de acción, debe quedar todo centrado, incluyendo imagenes*/
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.profile-tutor-actions a{
+  padding: 10px 15px; 
+  color: #ffffff;
+  margin: 5px 0;
+  text-align: center;
+  border-radius: 5px;
+  text-decoration: none;
+  background-color: #19244D;
+  opacity: 0.8;
+}
+
+.profile-tutor-actions a :hover{
+  opacity: 1;
+  background-color: #0056b3;
+}
+
+.logout { /*ex imagen para desloguearse*/
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.search-driver-page { /* Estilos para el div que encierra toda la página de busqueda de conductores*/
+  background: linear-gradient(to bottom, #25356D, #4565B0); /* degradado de arriba hacia abajo */
+  color: white; /* color de texto blanco */
+  min-height: 100vh; /* altura mínima de la página */ 
+  min-width: 100vw;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 35px;
+}
+
+.search-driver-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-driver-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px;
+    padding-bottom: 0;
+}
+
+.menu-icon { 
+    width: 20px;
+}
+
+
+.menu-icon:hover {  
+    cursor: pointer;
+    width: 20px;
+}
+
+.Title-page-driverlink {
+    font-size: 20px;
+    margin: 0;
+}
+.title-page-school{
+  text-align: center;
+  font-size: 32pt;
+  font-weight: bold;
+  color: white;
+}
+
+.filter-icons {
+    gap: 10px;
+    width: 20px;
+    height: 20px;
+}
+/*La lista debe caber en la ventana y que solo se haga scroll en ella, no en la página completa*/
+.search-driver-list {
+    overflow-y: auto;
+    max-height: 70vh;
+    padding-top: 15px;
+}
+
+.search-driver-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid white;
+    opacity: 0;
+    visibility: hidden;
+    animation: slideDown 0.5s ease forwards; /* Se asegura que la animación se mantenga al finalizar */
+    background-color: #D9D9D9;
+    border-radius: 50px;
+    margin-bottom: 25px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.search-driver-name-driver{
+  color: #000000;
+  font-weight: 600;
+}
+
+.search-driver-info-item {
+  color: #7F7F7F;
+}
+
+.driver-avatar{
+  position: absolute;
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
+.add-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    bottom: -15px;
+}
+
+.search-driver-info-container {
+    flex: 1;
+    margin-left: 75px;
+    margin-right: 15px;
+    font: 0.9em sans-serif;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.search-driver-filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+.filter {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background-color: gray; /* color de fondo de los filtros */
+  border-radius: 10px; /* bordes redondeados */
+  padding: 10px 15px; /* espacio interno */
+}
+
+.filter-options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filter-options p {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #EFEFEF;
+}
+
+.search-driver-list-qr-button-div { /* div del botón que debe quedar en la parte inferior*/
+    display: flex;
+    flex-direction: row;
+    width: 100%; /* Asegura que el botón se extienda a lo ancho */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.search-driver-list-qr-button { /* botón que debe quedar en la parte inferior*/
+  border-radius: 5px;
+  color: #1A2642;
+  font-weight: 600;
+}
+
+.search-driver-list-qr-button :hover {
+  background-color: #19254f; /* Color más oscuro cuando se pasa el mouse */
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+
+.Button-qr {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+
+.upload-buton-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Posición relativa para que el contenedor sea el padre de los elementos internos */
+  width: 100%;
+  height: 100%;
+}
+
+.upload-button { 
+  color: white;
+  margin-top: -10px;
+  cursor: pointer;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
+
+.logo-kowapp-perfil-tutor {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.avatar-preview {
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  position: relative; /* Asegúrate de que el div sea de posición relativa */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+}
+
+
+.avatar-preview:hover {
+  opacity: 0.9;
+  background-color: #505050;
+}
+
+.avatar-preview:hover .change-image-text {
+  display: flex; /* O 'flex' si quieres que sea un contenedor flex */
+}
+
+
+.change-image-text {
+  display: none;
+  position: absolute; /* Posición absoluta respecto a su padre relativo */
+  text-align: center; /* Centrar texto horizontalmente */
+  padding: 10px; /* Añadir algo de padding si es necesario */
+}
+
+.qr-scan-image {
+  width: 32px;
+  height: 32px;
+  margin-left: 10px;
+}
+
+.Button-qr:hover {
+    background-color: #0056b3;
+}
+
+.div-qr{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 100px;
+}
+.title-qr{
+  text-align: center;
+  font-weight: bold;
+  padding-top: 20px;
+
+}
+.button-generate-qr{
+  padding-bottom: 20px;
+  display: flex;
+  flex: 1;
+  
+}
+.navigation-bar img{
+  float: right;
+  padding-bottom: 10px;
+  width: 32;  
+  height: 32;
+}
+.options-section {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+.dropdown-window{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #19254f;
+  border: 1px;
+  height: 230px;
+  padding: 10px;
+  animation: slideIn 0.3s ease-in-out;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  align-items: center;
+}
+.icon-nino-profile{ 
+  width: 100px;
+  height: 100px;
+}
+
+.list-student-label input{
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  align-items:flex-end;
+}
+.list-student-info{
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+/* Estilos para el modal de seleccion de mensajes predefinidos en solicitudes de linkDriver */
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s;
+  color: black;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 400px;
+}
+
+.modal select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.modal button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; 
+}
+
+.modal button {
+  background-color: #19254f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.modal button:hover {
+  background-color: #FFA300;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .modal-content {
+      width: 95%;
+  }
+}
+
+/* ***************************************************************** */
+/* Estilos para el modal de agregar estudiantes en la vista del tutor */
+.students-form-modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.students-form-modal-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+}
+
+.students-form-modal-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.students-form-modal-container input,
+.students-form-modal-container button,
+.students-form-modal-container select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.students-form-modal-container input {
+  color: black;
+  margin: 5px 0;
+}
+
+.students-form-modal-container button[type="button"] {
+  background-color: #040D36;
+  border-radius: 5px;
+  opacity: 0.9;
+}
+
+.students-form-modal-container button[type="button"]:hover {
+  background-color: #040D36;
+}
+
+.buttons-form-add-student {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  align-content: center;
+}
+
+.error-form-add-student {
+  color: red; /* o cualquier color que prefieras */
+  font-size: 0.8rem;
+  padding-left: 5px;
+}
+/* ***************************************************************** */
+/* Estilos para el menu del perfil del tutor*/
+.dropdown-menu {
+  position: absolute;
+  top: 40px; 
+  right: 0; /* Alinea el menú a la derecha del contenedor del icono */
+  background-color: #040D36;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1000; /* Un z-index alto para asegurar que el menú se muestre encima de otros elementos */
+  overflow-x: hidden; /* Oculta el contenido desbordado horizontalmente */
+  cursor: pointer;
+}
+
+.students {
+  color: white;
+  padding: 6px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s;
+}
+
+.students :hover {
+  background-color: #19254f;
+}
+
+.add-student {
+  padding: 10px 15px; 
+  color: #ffffff;
+  margin: 5px 0;
+  text-align: center;
+  border-radius: 5px;
+  text-decoration: none;
+  background-color: #19244D;
+  opacity: 0.8;
+}
+
+.logout-tutor {
+  color: black;
+  padding: 6px 16px;
+  text-decoration: none;
+  display: block;
+  background-color: #FFA300;
+}
+
+.logout-tutor :hover{
+  background-color: white;
+}
+/* ***************************************************************** */

@@ -1,0 +1,55 @@
+.container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.yesButton,
+.noButton {
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.yesButton {
+    background-color: #4caf50;
+    /* Verde */
+    color: white;
+}
+
+.noButton {
+    background-color: #f44336;
+    /* Rojo */
+    color: white;
+}
+
+.yesButton:hover,
+.noButton:hover {
+    background-color: #45a049;
+    /* Verde oscuro */
+    /* Rojo oscuro */
+}
+
+/*   modal    */
+
+
+
+.confirmationPopup {
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid black;
+}

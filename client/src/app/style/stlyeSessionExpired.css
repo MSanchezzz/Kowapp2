@@ -1,0 +1,59 @@
+/* styleSessionExpired.css */
+
+/* Estilo para el fondo del modal */
+.ReactModal__Overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, #25356D, #4565B0); /* Degradado de azul */
+    z-index: 1000; /* Asegura que el modal esté en la parte superior */
+  }
+  
+  /* Estilo para el contenido del modal */
+  .ReactModal__Content {
+    position: relative;
+    background-color: #fff; /* Fondo blanco */
+    border-radius: 8px;
+    max-width: 400px; /* Ancho máximo del modal */
+    width: 100%;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  /* Estilo para el título del modal */
+  .h2 {
+    font-size: 24px;
+    color: #25356D; /* Color de texto azul oscuro */
+    margin-bottom: 10px;
+  }
+  
+  /* Estilo para el mensaje del modal */
+  .p {
+    font-size: 16px;
+    color: #4565B0; /* Color de texto azul claro */
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo para el botón de cerrar */
+  .button {
+    background-color: #FFA700; /* Color de fondo amarillo */
+    color: #FFFFFF; /* Color de texto blanco */
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* Estilo para el botón de cerrar al pasar el mouse */
+  .button:hover {
+    background-color: #e89802; /* Color de fondo amarillo más oscuro al pasar el mouse */
+  }
+  

@@ -1,0 +1,133 @@
+/* styles.module.css */
+
+/* Utiliza colores y sombras consistentes para un diseño más refinado y moderno */
+.chat-container-background {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Esto ocupará toda la altura de la ventana */
+  max-width: 95%;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  justify-content: space-between; /* Esto asegura que el footer se quede abajo y el chat arriba */
+}
+
+.messagescontainer {
+  display: flex;
+  flex-direction: column; /* Esto hará que los mensajes comiencen desde abajo */
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #f9f9f9;
+  color: black;
+  margin-bottom: 0;
+}
+
+.container-header-chat{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffa300;
+  color: black;
+  padding: 10px;
+  margin-bottom: 0;
+}
+
+.sentmessage {
+  position: fixed; /* Cambia sticky por fixed para asegurar que siempre esté visible */
+  bottom: 0;
+  width: 100%; /* Asegúrate de que el ancho coincida con el del contenedor principal */
+  background: white;
+  /* Añade un box-shadow o borde superior si quieres que se destaque del resto del chat */
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  padding: 10px;
+}
+
+.received-message {
+  background-color: #e0e0e0;
+  border-radius: 15px; /* Mensajes con bordes redondeados */
+  padding: 10px;
+  margin-bottom: 10px;
+  max-width: 80%; /* Los mensajes no ocuparán toda la anchura del contenedor */
+  word-wrap: break-word; /* Asegura que los mensajes largos no salen del contenedor */
+}
+
+.sent-message {
+  align-self: flex-end; /* Alinea los mensajes enviados a la derecha */
+  background-color: #007bff; /* Color distintivo para los mensajes enviados */
+  color: black;
+}
+
+.received-message {
+  align-self: flex-start; /* Alinea los mensajes recibidos a la izquierda */
+}
+
+.senderName {
+  flex-grow: 1; /* Permite que el input crezca y llene el espacio */
+  border: 2px solid #ddd; /* Borde más definido para el input */
+  border-radius: 20px; /* Bordes redondeados para el input */
+  padding: 10px;
+  margin-right: 10px; /* Espacio entre el input y el botón */
+  color: black;
+}
+
+.senderBotton {
+  display: flex;
+  background-color: #ffa300;
+  border: none; /* Elimina el borde del botón */
+  border-radius: 10px; /* Bordes redondeados para el botón */
+  padding: 10px 10px; /* Espacio interno para el botón */
+  cursor: pointer; /* Cursor en forma de mano al pasar sobre el botón */
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  color: black;
+}
+
+/* Estilos para el encabezado y el pie de página del chat */
+.chatFooter,
+.chatHeader {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px; /* Espacio interno para el header y footer */
+}
+
+
+.unionBotton1 {
+  background-color: #ffa300;
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 10px;
+  margin-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.unionBotton2 {
+  background-color: #ffa300;
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 10px;
+  margin-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  position: absolute;
+  right: 0;
+}
+
+.centerContent {
+  display: flex;
+  align-items: center; /* Centra los elementos verticalmente */ 
+}
+
+.chat-options{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffa300;
+  color: black;
+}

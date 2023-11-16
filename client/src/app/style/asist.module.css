@@ -1,0 +1,54 @@
+.container {
+    text-align: center;
+    margin-top: 50px;
+    background-color: #17223B;
+    flex: auto;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.yesButton,
+.noButton {
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.yesButton {
+    background-color: #4caf50;
+    /* Verde */
+    color: white;
+}
+
+.noButton {
+    background-color: #f44336;
+    /* Rojo */
+    color: white;
+}
+
+.yesButton:hover,
+.noButton:hover {
+    background-color: #45a049;
+    /* Verde oscuro */
+    /* Rojo oscuro */
+}
+
+.container {
+    text-align: center;
+  }
+  
+  .title {
+    border: 2px solid black;
+    background-color: rgb(214, 192, 69);
+    color: rgb(37, 49, 209);
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
