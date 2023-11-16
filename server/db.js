@@ -18,15 +18,15 @@ const createTcpPool = async () => {
   try {
     // Obtener secretos de Cloud Secret Manager
     const secretNames = [
-      'projects/116591088112/secrets/db_user', 
-      'projects/116591088112/secrets/db_password',
-      'projects/116591088112/secrets/db_host',
-      'projects/116591088112/secrets/db_port',
-      'projects/116591088112/secrets/db_name',
+      'projects/630031378618/secrets/db_user', 
+      'projects/630031378618/secrets/db_password',
+      'projects/630031378618/secrets/db_host',
+      'projects/630031378618/secrets/db_port',
+      'projects/630031378618/secrets/db_name',
       'projects/116591088112/secrets/node_port',
-      'projects/116591088112/secrets/client-cert',
-      'projects/116591088112/secrets/client-key',
-      'projects/116591088112/secrets/server-ca',
+      'projects/630031378618/secrets/client-cert',
+      'projects/630031378618/secrets/client-key',
+      'projects/630031378618/secrets/server-ca',
     ];
 
     const secrets = await getSecrets(secretNames);
@@ -35,11 +35,11 @@ const createTcpPool = async () => {
     const dbConfig = {
       client: 'pg',
       connection: {
-        user: secrets['projects/116591088112/secrets/db_user'],
-        password: secrets['projects/116591088112/secrets/db_password'],
-        host: secrets['projects/116591088112/secrets/db_host'],
-        port: secrets['projects/116591088112/secrets/db_port'],
-        database: secrets['projects/116591088112/secrets/db_name'],
+        user: secrets['projects/630031378618/secrets/db_user'],
+        password: secrets['projects/630031378618/secrets/db_password'],
+        host: secrets['projects/630031378618/secrets/db_host'],
+        port: secrets['projects/630031378618/secrets/db_port'],
+        database: secrets['projects/630031378618/secrets/db_name'],
       },
     };
 
@@ -47,9 +47,9 @@ const createTcpPool = async () => {
     if (process.env.DB_ROOT_CERT) {
       dbConfig.connection.ssl = {
         rejectUnauthorized: false,
-        ca: secrets['projects/116591088112/secrets/server-ca'],
-        key: secrets['projects/116591088112/secrets/client-key'],
-        cert: secrets['projects/116591088112/secrets/client-cert'],
+        ca: secrets['projects/630031378618/secrets/server-ca'],
+        key: secrets['projects/630031378618/secrets/client-key'],
+        cert: secrets['projects/630031378618/secrets/client-cert'],
       };
     }
 
