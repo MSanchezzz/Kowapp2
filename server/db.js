@@ -11,20 +11,52 @@ dotenv.config();
 
 let db;
 
+// Define una función para crear una conexión a la base de datos
 const createTcpPool = async () => {
   try {
     // Obtener secretos de Cloud Secret Manager
     const secretNames = [
+      'projects/630031378618/secrets/db_user', 
+      'projects/630031378618/secrets/db_password',
+      'projects/630031378618/secrets/db_host',
       'projects/630031378618/secrets/db_port',
-      // Otros nombres de secretos...
+      'projects/630031378618/secrets/db_name',
+      'projects/630031378618/secrets/node_port',
+      'projects/630031378618/secrets/client-cert',
+      'projects/630031378618/secrets/client-key',
+      'projects/630031378618/secrets/server-ca',
     ];
 
     const secrets = await getSecrets(secretNames);
 
-    // Resto de tu código...
+    // Configuración de la base de datos
+    const dbConfig = {
+      client: 'pg',
+      connection: {
+        user: secrets['projects/630031378618/secrets/db_user'],
+        password: secrets['projects/630031378618/secrets/db_password'],
+        host: secrets['projects/630031378618/secrets/db_host'],
+        port: secrets['projects/630031378618/secrets/db_port'],
+        database: secrets['projects/630031378618/secrets/db_name'],
+      },
+    };
+
+    // Si se especifica una ruta para el certificado de CA, utiliza SSL
+    if (process.env.DB_ROOT_CERT) {
+      dbConfig.connection.ssl = {
+        rejectUnauthorized: false,
+        ca: secrets['projects/630031378618/secrets/server-ca'],
+        key: secrets['projects/630031378618/secrets/client-key'],
+        cert: secrets['projects/630031378618/secrets/client-cert'],
+      };
+    }
+
+    // Asignar la conexión a la variable db
+    db = Knex(dbConfig); // Knex para crear la conexión a la base de datos con la configuración anterior
+    return db; // Devuelve la conexión
   } catch (error) {
     console.error('Error al crear la conexión a la base de datos:', error);
-    throw error;
+    throw error; // Reenviar el error para que sea manejado en otro lugar si es necesario
   }
 };
 
