@@ -1,5 +1,4 @@
 // secrets.js
-
 const { SecretManagerServiceClient } = require('@google-cloud/secret-manager').v1;
 
 // Función para obtener secretos de Cloud Secret Manager
@@ -27,4 +26,8 @@ async function getSecrets(secretNames) {
   return secrets;
 }
 
-module.exports = { getSecrets };
+// Otras funciones...
+
+module.exports = {
+  getSecrets, // Agrega la función getSecrets a las exportaciones
+};

@@ -25,7 +25,7 @@ const {
 } = require('./db');
 const cookieParser = require('cookie-parser'); // Importa el middleware de cookies para leer las cookies en las solicitudes
 
-const storage = new Storage({keyFilename: './kowapp1-a186223eb470.json',projectId: 'kowapp1'}); // Configuración de Google Cloud Storage
+const storage = new Storage({keyFilename: 'server/kowapp-f4fd99f90596.json',projectId: 'kowapp1'}); // Configuración de Google Cloud Storage
 const bucketName = 'kowap'; // Reemplaza con el nombre de tu bucket
 
 app.use(cookieParser()); // Habilita el uso de cookies en las solicitudes

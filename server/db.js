@@ -1,66 +1,34 @@
 // server/db.js
-const nodemailer = require('nodemailer'); // Módulo para enviar correos electrónicos
-const dotenv = require('dotenv'); // Módulo para cargar variables de entorno desde un archivo .env
-const Knex = require('knex'); // Módulo para conectarse a la base de datos
-const { getSecrets } = require('./secrets'); // Importa la función getSecrets desde el mismo directorio
+const nodemailer = require('nodemailer');
+const dotenv = require('dotenv');
+const Knex = require('knex');
+const { getSecrets } = require('./secrets'); // Importa la nueva función getSecrets
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { request, response } = require('express');
 
+dotenv.config();
 
-dotenv.config(); // Cargar variables de entorno desde el archivo .env
-
-// Declaración de db en el ámbito global del módulo
 let db;
 
-// Define una función para crear una conexión a la base de datos
 const createTcpPool = async () => {
   try {
     // Obtener secretos de Cloud Secret Manager
     const secretNames = [
-      'projects/630031378618/secrets/db_user', 
-      'projects/630031378618/secrets/db_password',
-      'projects/630031378618/secrets/db_host',
       'projects/630031378618/secrets/db_port',
-      'projects/630031378618/secrets/db_name',
-      'projects/116591088112/secrets/node_port',
-      'projects/630031378618/secrets/client-cert',
-      'projects/630031378618/secrets/client-key',
-      'projects/630031378618/secrets/server-ca',
+      // Otros nombres de secretos...
     ];
 
     const secrets = await getSecrets(secretNames);
 
-    // Configuración de la base de datos
-    const dbConfig = {
-      client: 'pg',
-      connection: {
-        user: secrets['projects/630031378618/secrets/db_user'],
-        password: secrets['projects/630031378618/secrets/db_password'],
-        host: secrets['projects/630031378618/secrets/db_host'],
-        port: secrets['projects/630031378618/secrets/db_port'],
-        database: secrets['projects/630031378618/secrets/db_name'],
-      },
-    };
-
-    // Si se especifica una ruta para el certificado de CA, utiliza SSL
-    if (process.env.DB_ROOT_CERT) {
-      dbConfig.connection.ssl = {
-        rejectUnauthorized: false,
-        ca: secrets['projects/630031378618/secrets/server-ca'],
-        key: secrets['projects/630031378618/secrets/client-key'],
-        cert: secrets['projects/630031378618/secrets/client-cert'],
-      };
-    }
-
-    // Asignar la conexión a la variable db
-    db = Knex(dbConfig); // Knex para crear la conexión a la base de datos con la configuración anterior
-    return db; // Devuelve la conexión
+    // Resto de tu código...
   } catch (error) {
     console.error('Error al crear la conexión a la base de datos:', error);
-    throw error; // Reenviar el error para que sea manejado en otro lugar si es necesario
+    throw error;
   }
 };
+
+
 
 
 // Define una función para insertar un conductor en la tabla "drivers"
@@ -332,20 +300,19 @@ const checkRutExists = async (rut) => {
   }
 };
 
+
 module.exports = {
   createTcpPool,
-  insertDriver, // Agrega la función a las exportaciones
-  loginTutor, // Agrega la función para autenticar al usuario tutor
-  insertTutor, // Agrega la función tutor
-  listDrivers, // Agrega la función para listar conductores
-  createRequest, // Agrega la función para crear una solicitud
-  deactivateOldSessions, // Agrega la función para marcar todas las sesiones anteriores del tutor como inactivas
-  createSession, // Agrega la función para crear una nueva sesión
-  saveImageURLToDatabase, // Agrega la función para guardar la URL de la imagen en la base de datos
-  getTutorDetails, // Agrega la función para obtener detalles de un tutor específico
-  listStudents, // Agrega la función para listar estudiantes
-  insertStudent, // Agrega la nueva función a las exportaciones
-  checkRutExists, // Agrega la función para verificar si un estudiante con un RUT específico ya existe
+  insertDriver,
+  loginTutor,
+  insertTutor,
+  listDrivers,
+  createRequest,
+  deactivateOldSessions,
+  createSession,
+  saveImageURLToDatabase,
+  getTutorDetails,
+  listStudents,
+  insertStudent,
+  checkRutExists,
 };
-
-
