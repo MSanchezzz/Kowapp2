@@ -74,14 +74,30 @@ const RegistrationFormTutor = () => {
   }, {});
 
   const validaRUT = (rutCompleto) => {
-    if (!/^0*(\d{1,3}(\.?\d{3})*)\-?([\dkK])$/.test(rutCompleto)) return false;
+    // Validar longitud del RUT (considerando el guión como parte de la longitud)
+    if (rutCompleto.length < 9 || rutCompleto.length > 12) {
+      return false;
+    }
+  
+    // Validar formato del RUT
+    if (!/^0*(\d{1,3}(\.?\d{3})*)\-?([\dkK])$/.test(rutCompleto)) {
+      return false;
+    }
+  
+    // Separar RUT y dígito verificador
     const tmp = rutCompleto.split('-');
     let digv = tmp[1];
     const rut = tmp[0].replace(/\./g, '');
-    if (digv === 'K') digv = 'k';
+  
+    // Ajustar dígito verificador en caso de ser 'K'
+    if (digv === 'K') {
+      digv = 'k';
+    }
+  
+    // Validar dígito verificador
     return dv(rut) === digv;
   };
-
+  
   // Código para validar el dígito verificador
   const dv = (T) => {
     let M = 0,
