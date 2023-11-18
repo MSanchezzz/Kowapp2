@@ -239,7 +239,7 @@ app.post("/insert-tutor", async (req, res) => {
       escuela,
       db
     ); // Pasa la conexión `db` a la función
-    res.json({ message: "Conductor registrado con éxito", newtutor });
+    res.json({ message: "Tutor registrado con éxito", newtutor });
   } catch (error) {
     if (error.field) {
       res.status(400).json({
