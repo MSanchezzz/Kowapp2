@@ -130,13 +130,21 @@ const RegistrationFormTutor = () => {
     let errorMessage = '';  // mensaje de error localo
 
     if (!formData.nombre) {
-        isValid = false;
-        invalidField = 'nombre';
-        errorMessage = 'Por favor, ingrese un nombre válido.'
+      isValid = false;
+      invalidField = 'nombre';
+      errorMessage = 'Por favor, ingrese un nombre válido.';
+    } else if (!/^[a-zA-Z]+$/.test(formData.nombre)) {
+      isValid = false;
+      invalidField = 'nombre';
+      errorMessage = 'Por favor, ingrese un nombre válido (solo letras).';
     } else if (!formData.apellido) {
-        isValid = false;
-        invalidField = 'apellido';
-        errorMessage = 'Por favor, ingrese un apellido válido.'
+      isValid = false;
+      invalidField = 'apellido';
+      errorMessage = 'Por favor, ingrese un apellido válido.';
+    } else if (!/^[a-zA-Z]+$/.test(formData.apellido)) {
+      isValid = false;
+      invalidField = 'apellido';
+      errorMessage = 'Por favor, ingrese un apellido válido (solo letras).';
     } else if (!formData.email.match(emailPattern)) {
         isValid = false;
         invalidField = 'email';
@@ -171,12 +179,22 @@ const RegistrationFormTutor = () => {
         isValid = false;
         invalidField = 'repetirContraseña';
         errorMessage = 'Las contraseñas no coinciden.'
-    } else if (!formData.nombreNino) {
+      } else if (!formData.nombreNino) {
         isValid = false;
         invalidField = 'nombreNino';
-    } else if (!formData.apellidoNino) {
+        errorMessage = 'Por favor, ingrese un nombre de estudiante válido.';
+      } else if (!/^[a-zA-Z]+$/.test(formData.nombreNino)) {
+        isValid = false;
+        invalidField = 'nombreNino';
+        errorMessage = 'Por favor, ingrese un nombre de estudiante válido (solo letras).';
+      } else if (!formData.apellidoNino) {
         isValid = false;
         invalidField = 'apellidoNino';
+        errorMessage = 'Por favor, ingrese un apellido de estudiante válido.';
+      } else if (!/^[a-zA-Z]+$/.test(formData.apellidoNino)) {
+        isValid = false;
+        invalidField = 'apellidoNino';
+        errorMessage = 'Por favor, ingrese un apellido de estudiante válido (solo letras).';
     } else if (!formData.residencia) {
         isValid = false;
         invalidField = 'residencia';
