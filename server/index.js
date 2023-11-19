@@ -503,7 +503,7 @@ io.on("connect", (socket) => {
       }
     });
   });
-//console.log("Servidor iniciado y listo para nuevas conexiones..");
+//console.log("Servidor iniciado y listo para nuevas conexiones");
 });
 
 

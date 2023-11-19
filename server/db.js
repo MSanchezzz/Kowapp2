@@ -14,7 +14,7 @@ let db;
 // Define una función para crear una conexión a la base de datos
 const createTcpPool = async () => {
   try {
-    // Obtener secretos de Cloud Secret Manager
+    // Obtener secretos de Cloud Secret Manager a
     const secretNames = [
       'projects/630031378618/secrets/db_user', 
       'projects/630031378618/secrets/db_password',
