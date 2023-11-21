@@ -1,13 +1,13 @@
-'use client';
-
+'use client'
+// Importaciones
 import Link from 'next/link';
 import '../../../style/styles.css';
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import { useRouter } from 'next/navigation';
-import Modal from '../../../../components/SessionExpiredModal';
 
 const ScreenTutor = () => {
+  // Estado y variables
   const [data, setData] = useState(null);
   const [isSessionExpired, setIsSessionExpired] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
@@ -31,6 +31,7 @@ const ScreenTutor = () => {
 
   const token = getCookie('token');
 
+  // Efecto para la ubicación
   useEffect(() => {
     const handleLocationUpdate = (position) => {
       const { latitude, longitude } = position.coords;
@@ -56,24 +57,26 @@ const ScreenTutor = () => {
     }
   }, []);
 
+  // Efecto para la carga de datos y el mapa
   useEffect(() => {
-    fetch('http://localhost:3001/student-info', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/student-info', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        });
+
+        if (!response.ok) {
           throw new Error(`No autorizado - Estado: ${response.status}`);
         }
-      })
-      .then(studentInfo => {
-        if (studentInfo && studentInfo.length !== undefined) {
+
+        const studentInfo = await response.json();
+
+        if (Array.isArray(studentInfo)) {
           console.log("Type of studentInfo:", typeof studentInfo);
           console.log("Length of studentInfo:", studentInfo.length);
           console.log("Student data from server:", studentInfo);
@@ -81,13 +84,19 @@ const ScreenTutor = () => {
         } else {
           console.error("Invalid studentInfo received from the server:", studentInfo);
         }
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Error fetching student data:', error);
         setIsSessionExpired(true);
-      });
+      }
+    };
 
-    // Función para inicializar el mapa
+    fetchData();
+  }, [token]);
+
+  // Efecto para la carga de la API de Google Maps
+  useEffect(() => {
+    let script;
+
     const initMap = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -101,15 +110,21 @@ const ScreenTutor = () => {
                   elementType: 'geometry',
                   stylers: [
                     { visibility: 'simplified' },
-                    { hue: '#ff0000' }, // Cambia el color de fondo si lo deseas
-                    { saturation: -100 }, // Hace que el mapa sea más claro
-                    { lightness: 10 }, // Ajusta la claridad
-                    { gamma: 0.8 } // Ajusta la intensidad de la luz
+                    { hue: '#ff0000' },
+                    { saturation: -100 },
+                    { lightness: 10 },
+                    { gamma: 0.8 }
                   ]
                 }
               ],
             };
-            const map = new window.google.maps.Map(document.getElementById('map'), mapOptions);
+
+            const map = new window.google.maps.Map(document.getElementById('map'), {
+              ...mapOptions,
+              styles: [...mapOptions.styles],
+              background: 'transparent',
+            });
+
             new window.google.maps.Marker({
               position: { lat: position.coords.latitude, lng: position.coords.longitude },
               map: map,
@@ -124,19 +139,63 @@ const ScreenTutor = () => {
         console.error('La geolocalización no es compatible con este navegador.');
       }
     };
-    // Llama a la función de inicialización cuando la API de Google Maps se carga
+
     window.initMap = initMap;
 
-    // Carga dinámicamente la API de Google Maps
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAgI1pg5OLY-CsKJDp7eTALNnA6ZXnkXlE&libraries=places&callback=initMap`;
-    script.defer = true;
-    document.head.appendChild(script);
+    if (typeof window.google === 'undefined') {
+      script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAgI1pg5OLY-CsKJDp7eTALNnA6ZXnkXlE&libraries=places&callback=initMap`;
+      script.defer = true;
+      document.head.appendChild(script);
+
+      script.onload = () => {
+        if (script) {
+          document.head.removeChild(script);
+        }
+      };
+    }
 
     return () => {
-      // Limpia el script cuando el componente se desmonta
-      document.head.removeChild(script);
+      if (script) {
+        document.head.removeChild(script);
+      }
     };
+  }, []);
+
+  // Efecto para la obtención de datos
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/student-info', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        });
+
+        if (!response.ok) {
+          throw new Error(`No autorizado - Estado: ${response.status}`);
+        }
+
+        const studentInfo = await response.json();
+
+        if (Array.isArray(studentInfo)) {
+          console.log("Type of studentInfo:", typeof studentInfo);
+          console.log("Length of studentInfo:", studentInfo.length);
+          console.log("Student data from server:", studentInfo);
+          setData(studentInfo);
+        } else {
+          console.error("Invalid studentInfo received from the server:", studentInfo);
+        }
+      } catch (error) {
+        console.error('Error fetching student data:', error);
+        setIsSessionExpired(true);
+      }
+    };
+
+    fetchData();
   }, [token]);
 
   const handleConnection = () => {
@@ -154,18 +213,12 @@ const ScreenTutor = () => {
     router.push('/login');
   };
 
-
   if (!data) {
     return <div>Loading...</div>;
   }
-
-  <div id="map" style={{ height: "600px", width: "400px", margin: "100px auto" }}></div>
-
+  <div id="map" style={{ height: '400px', width: '100%' }}></div>
   return (
     <div>
-      {/* Contenedor del mapa con margen superior */}
-
-      {/* Resto del contenido de tu componente */}
       <div className="background-screen-tutor">
         <div className="header-icons">
           <div className='icon-settings'>
