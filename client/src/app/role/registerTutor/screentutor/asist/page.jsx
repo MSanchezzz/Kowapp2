@@ -10,28 +10,39 @@ const Attendance = () => {
     const [attendance, setAttendance] = useState(null);
     const [showConfirmation, setShowConfirmation] = useState(false);
 
-    const handleAttendance = (value) => {
-        // Enviar la asistencia al backend
-        fetch('http://localhost:3001/api/attendance', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ childId: 'uniqueChildId', attendance: value }),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data.message);
-                setAttendance(value);
-                setShowConfirmation(true); // Muestra la ventana flotante después de registrar la asistencia
-            })
-            .catch((error) => {
-                console.error('Error:', error);
+    const registerAttendance = async (childId, attendance) => {
+        try {
+            const dateTime = new Date().toISOString(); // Utiliza ISO format para la fecha y hora
+            const response = await fetch('http://localhost:3001/api/attendance', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ childId, attendance, dateTime }),
             });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data.message);
+                setAttendance(attendance);
+                setShowConfirmation(true);
+            } else {
+                console.error('Error al registrar la asistencia:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error al registrar la asistencia:', error);
+        }
     };
+
+    const handleAttendance = async (value) => {
+        // Llama a la función para registrar la asistencia en la base de datos
+        await registerAttendance('uniqueChildId', value);
+    };
+
     const goBack = () => {
-        window.history.back(); // Retroceder a la página anterior
+        window.history.back();
     };
+
     const closeConfirmation = () => {
         setShowConfirmation(false);
     };

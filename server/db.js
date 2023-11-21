@@ -368,3 +368,44 @@ module.exports = {
   listStudentsByTutor,
   checkRutExists,
 };
+
+//Funcion para el llamado de Base de datos implementacion asistencia
+const registerAttendance = async (childId, attendance) => {
+  console.log('Registrando asistencia para childId:', childId, 'attendance:', attendance);
+  try {
+    const dateTime = moment().format('YYYY-MM-DD HH:mm:ss');
+    
+    console.log('Realizando solicitud al servidor...');
+    const response = await fetch('http://localhost:3001/api/attendance', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ childId, attendance, dateTime }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Respuesta del servidor:', data.message);
+      setAttendance(attendance);
+      setShowConfirmation(true);
+    } else {
+      console.error('Error al registrar la asistencia:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error al registrar la asistencia:', error);
+  }
+};
+
+const handleAttendance = async (value) => {
+  try {
+    console.log('Manejando la asistencia con valor:', value);
+    // Llama a la función para registrar la asistencia en la base de datos
+    const attendanceId = await registerAttendance('uniqueChildId', value);
+    console.log('Asistencia registrada con ID:', attendanceId);
+    // Aquí puedes realizar cualquier acción adicional después de que la asistencia se haya registrado correctamente.
+  } catch (error) {
+    console.error('Error al manejar la asistencia:', error);
+    // Aquí puedes realizar acciones específicas en caso de error, como mostrar un mensaje al usuario.
+  }
+};
