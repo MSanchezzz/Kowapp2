@@ -317,6 +317,25 @@ const insertStudent = async (studentData, tutorId) => {
     throw error;
   }
 };
+const listStudentsByTutor = async (tutorId) => {
+  try {
+    console.log('Tutor ID:', tutorId);
+
+    const students = await db('students')
+      .where({ fk_tutor_id: tutorId })
+      .select('student_id', 'student_nombre', 'student_surname', 'rut', 'student_school', 'student_home', 'student_asist');
+
+    console.log('Students:', students); // Agrega este log para verificar si se están obteniendo datos
+
+    return students;
+  } catch (error) {
+    console.error('Error en listStudentsByTutor:', error); // Agrega este log para verificar si hay errores
+    throw error;
+  }
+};
+
+
+
 
 // Función para verificar si un estudiante con un RUT específico ya existe
 const checkRutExists = async (rut) => {
@@ -346,5 +365,6 @@ module.exports = {
   getTutorDetails,
   listStudents,
   insertStudent,
+  listStudentsByTutor,
   checkRutExists,
 };

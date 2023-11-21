@@ -1,4 +1,3 @@
-// StudentFormModal.js
 import React, { useState } from 'react';
 import '../../../client/src/app/style/styles.css';
 
@@ -6,8 +5,26 @@ const StudentFormModal = ({ student, onChange, onSave, onCancel }) => {
   // Estado para manejar los mensajes de error
   const [errors, setErrors] = useState({});
 
+  // Función para validar el RUT
+  const validateRut = (rut) => {
+    // Expresión regular para validar el formato
+    const regex = /^[0-9]+-[0-9kK]{1}$/;
+    if (!regex.test(rut)) return false;
+
+    // Separar número del dígito verificador
+    let [numero, dv] = rut.split('-');
+    let m = 0, s = 1;
+    for (; numero; numero = Math.floor(numero / 10)) {
+      s = (s + numero % 10 * (9 - m++ % 6)) % 11;
+    }
+    // Verificar dígito verificador
+    return dv.toUpperCase() === (s ? s - 1 : 'K').toString();
+  };
+
+  // Función para validar los campos del formulario
   const validate = () => {
     let tempErrors = {};
+
     // Validación de nombre y apellido
     if (!student.student_nombre) {
       tempErrors.student_nombre = 'El nombre es requerido.';
@@ -24,22 +41,6 @@ const StudentFormModal = ({ student, onChange, onSave, onCancel }) => {
     setErrors(tempErrors);
     // Retorna true si no hay errores
     return Object.keys(tempErrors).length === 0;
-  };
-
-  // Función para validar el RUT
-  const validateRut = (rut) => {
-    // Expresión regular para validar el formato
-    const regex = /^[0-9]+-[0-9kK]{1}$/;
-    if (!regex.test(rut)) return false;
-
-    // Separar número del dígito verificador
-    let [numero, dv] = rut.split('-');
-    let m = 0, s = 1;
-    for (; numero; numero = Math.floor(numero / 10)) {
-      s = (s + numero % 10 * (9 - m++ % 6)) % 11;
-    }
-    // Verificar dígito verificador
-    return dv.toUpperCase() === (s ? s - 1 : 'K').toString();
   };
 
   // Modificar onSave para incluir validación
@@ -91,4 +92,3 @@ const StudentFormModal = ({ student, onChange, onSave, onCancel }) => {
 };
 
 export default StudentFormModal;
-

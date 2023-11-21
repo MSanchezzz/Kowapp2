@@ -8,6 +8,7 @@ const verifyToken = require("./AuthMiddleware"); // Importa el middleware de aut
 const { Storage } = require("@google-cloud/storage");
 const fileUpload = require("express-fileupload");
 const jwt = require("jsonwebtoken");
+const bodyParser = require('body-parser');
 const {
   createTcpPool,
   insertDriver,
@@ -24,8 +25,10 @@ const {
   checkRutExists,
 } = require('./db');
 const cookieParser = require('cookie-parser'); // Importa el middleware de cookies para leer las cookies en las solicitudes
+const dotenv = require('dotenv');
+dotenv.config();
 
-const storage = new Storage({keyFilename: 'server/kowapp-f4fd99f90596.json',projectId: 'kowapp1'}); // Configuración de Google Cloud Storage
+const storage = new Storage({keyFilename: 'server/kowapp1-6cf9f0a41992.json',projectId: 'kowapp1'}); // Configuración de Google Cloud Storage
 const bucketName = 'kowap'; // Reemplaza con el nombre de tu bucket
 
 app.use(cookieParser()); // Habilita el uso de cookies en las solicitudes
@@ -136,9 +139,10 @@ app.post("/login", async (req, res) => {
       // Establecer el token en una cookie HttpOnly
       res.cookie('token', token, {
         httpOnly: true,
+        expires: new Date(0),
         sameSite: 'lax', // Usa 'None' si estás implementando en dominios cruzados con HTTPS
         // secure: process.env.NODE_ENV === 'production', // Descomentar en producción
-        maxAge: 3600000 // 1 hora en milisegundos
+        maxAge: 3 * 60 * 60 * 1000, // 1 hora en milisegundos
       });
 
       // No enviar la contraseña ni información sensible al cliente
@@ -341,6 +345,90 @@ app.get('/tutor-profile', verifyToken, async (req, res) => {
     res.status(500).json({ message: 'Error al obtener la información del perfil' });
   }
 });
+
+
+// Datos de estudiantes (simulando una base de datos)
+const studentData = [
+  { id: 1, name: 'Estudiante 1', tutorId: 101, surname: 'Apellido 1' },
+  { id: 2, name: 'Estudiante 2', tutorId: 102, surname: 'Apellido 2' },
+  // Otros estudiantes...
+];
+
+// Función para obtener estudiantes asignados a un tutor
+async function listStudentsByTutor(tutorId) {
+  // Filtra los estudiantes que tienen el mismo tutorId que el proporcionado
+  const assignedStudents = studentData.filter(student => student.tutorId === tutorId);
+
+  return assignedStudents;
+}
+
+// Ruta para obtener información del estudiante
+app.get('/student-info', verifyToken, async (req, res) => {
+  try {
+    const tutorId = req.userId;
+
+    const assignedStudents = await listStudentsByTutor(tutorId);
+
+    console.log('Assigned Students:', assignedStudents); // Agrega este log para verificar si se están enviando los datos
+
+    res.json(assignedStudents);
+  } catch (error) {
+    console.error('Error al obtener datos del estudiante:', error);
+    res.status(500).json({ message: 'Error al obtener datos del estudiante' });
+  }
+});
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
+// Endpoint para recibir la ubicación del cliente
+app.post('/api/ubicacion', async (req, res) => {
+  try {
+    const { latitude, longitude } = req.body;
+
+    // Insertar la ubicación en la base de datos
+    const insertQuery = 'INSERT INTO ubicaciones (latitude, longitude) VALUES ($1, $2) RETURNING *';
+    const values = [latitude, longitude];
+
+    const result = await pool.query(insertQuery, values);
+    const insertedLocation = result.rows[0];
+
+    res.status(200).json({ message: 'Ubicación recibida y almacenada correctamente.', location: insertedLocation });
+  } catch (error) {
+    console.error('Error al procesar la ubicación:', error);
+    res.status(500).json({ error: 'Error interno del servidor.' });
+  }
+});
+
+app.post('/student-location', async (req, res) => {
+  try {
+    // Extrae la información de ubicación del cuerpo de la solicitud
+    const { studentId, latitude, longitude } = req.body;
+
+    // Realiza la inserción en la base de datos
+    const result = await pool.query(
+      'INSERT INTO ubicaciones_estudiantes (id_estudiante, latitud, longitud) VALUES ($1, $2, $3)',
+      [studentId, latitude, longitude]
+    );
+
+    // Envía una respuesta exitosa
+    res.status(200).send('Ubicación del estudiante registrada correctamente.');
+  } catch (error) {
+    console.error('Error al procesar la solicitud de ubicación:', error);
+    // Envía una respuesta de error
+    res.status(500).send('Error interno del servidor.');
+  }
+});
+
+
+
+
+
+
+
+
 
 // Ruta para cargar imágenes en Google Cloud Storage
 app.post("/upload-profile-picture", verifyToken, async (req, res) => {

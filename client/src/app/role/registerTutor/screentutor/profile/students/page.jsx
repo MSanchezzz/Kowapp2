@@ -178,7 +178,7 @@ const StudentList = () => {
                 onCancel={closeAddStudentModal}
               />
             )}
-            <Modal isOpen={isSessionExpired} onRequestClose={closeModal} />
+            {/* <Modal isOpen={isSessionExpired} onRequestClose={closeModal} /> */}
         </div>
     );
   

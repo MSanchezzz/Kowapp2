@@ -226,7 +226,7 @@ const ProfileTutor = () => {
           Registro Viajes
         </Link>
       </div>
-      <Modal isOpen={isSessionExpired} onRequestClose={closeModal} />
+     {/* <Modal isOpen={isSessionExpired} onRequestClose={closeModal} /> prueba 1*/}
     </div>
   );
 };
