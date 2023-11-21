@@ -51,3 +51,11 @@
     padding: 20px;
     border: 1px solid black;
 }
+
+#map {
+    height: 800px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.7); /* Fondo semitransparente */
+    border-radius: 10px; /* Bordes redondeados */
+  }
+  

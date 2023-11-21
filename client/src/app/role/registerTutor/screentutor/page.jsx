@@ -95,6 +95,19 @@ const ScreenTutor = () => {
             const mapOptions = {
               center: { lat: position.coords.latitude, lng: position.coords.longitude },
               zoom: 15,
+              styles: [
+                {
+                  featureType: 'all',
+                  elementType: 'geometry',
+                  stylers: [
+                    { visibility: 'simplified' },
+                    { hue: '#ff0000' }, // Cambia el color de fondo si lo deseas
+                    { saturation: -100 }, // Hace que el mapa sea más claro
+                    { lightness: 10 }, // Ajusta la claridad
+                    { gamma: 0.8 } // Ajusta la intensidad de la luz
+                  ]
+                }
+              ],
             };
             const map = new window.google.maps.Map(document.getElementById('map'), mapOptions);
             new window.google.maps.Marker({
@@ -111,7 +124,6 @@ const ScreenTutor = () => {
         console.error('La geolocalización no es compatible con este navegador.');
       }
     };
-
     // Llama a la función de inicialización cuando la API de Google Maps se carga
     window.initMap = initMap;
 
@@ -147,12 +159,12 @@ const ScreenTutor = () => {
     return <div>Loading...</div>;
   }
 
-
+  <div id="map" style={{ height: "600px", width: "400px", margin: "100px auto" }}></div>
 
   return (
     <div>
       {/* Contenedor del mapa con margen superior */}
-      <div id="map" style={{ height: "600px", width: "400px", margin: "100px auto" }}></div>
+
       {/* Resto del contenido de tu componente */}
       <div className="background-screen-tutor">
         <div className="header-icons">
