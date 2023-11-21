@@ -1,5 +1,5 @@
-'use client'
-// Importaciones
+'use client';
+
 import Link from 'next/link';
 import '../../../style/styles.css';
 import React, { useState, useEffect } from 'react';
@@ -7,18 +7,15 @@ import { io } from 'socket.io-client';
 import { useRouter } from 'next/navigation';
 
 const ScreenTutor = () => {
-  // Estado y variables
   const [data, setData] = useState(null);
   const [isSessionExpired, setIsSessionExpired] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
   const router = useRouter();
   const socket = io("http://localhost:3002");
-
   const getCookie = (name) => {
     if (typeof document === 'undefined') {
       return null;
     }
-
     const cookies = document.cookie.split(';');
     for (const cookie of cookies) {
       const [cookieName, cookieValue] = cookie.split('=').map(c => c.trim());
@@ -31,18 +28,119 @@ const ScreenTutor = () => {
 
   const token = getCookie('token');
 
-  // Efecto para la ubicación
+  const fetchDataAndMap = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/student-info', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error(`No autorizado - Estado: ${response.status}`);
+      }
+
+      const studentInfo = await response.json();
+
+      if (Array.isArray(studentInfo)) {
+        console.log("Type of studentInfo:", typeof studentInfo);
+        console.log("Length of studentInfo:", studentInfo.length);
+        console.log("Student data from server:", studentInfo);
+        setData(studentInfo);
+      } else {
+        console.error("Invalid studentInfo received from the server:", studentInfo);
+      }
+    } catch (error) {
+      console.error('Error fetching student data:', error);
+      setIsSessionExpired(true);
+    }
+
+    // Inicializar el mapa
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const mapOptions = {
+            center: { lat: position.coords.latitude, lng: position.coords.longitude },
+            zoom: 15,
+            styles: [
+              {
+                featureType: 'all',
+                elementType: 'geometry',
+                stylers: [
+                  { visibility: 'simplified' },
+                  { hue: '#ff0000' },
+                  { saturation: -100 },
+                  { lightness: 10 },
+                  { gamma: 0.8 }
+                ]
+              }
+            ],
+          };
+
+          const map = new window.google.maps.Map(document.getElementById('map'), {
+            ...mapOptions,
+            styles: [...mapOptions.styles],
+            background: 'transparent',
+          });
+
+          new window.google.maps.Marker({
+            position: { lat: position.coords.latitude, lng: position.coords.longitude },
+            map: map,
+            title: '¡Estás aquí!',
+          });
+        },
+        (error) => {
+          console.error('Error al obtener la ubicación:', error);
+        }
+      );
+    } else {
+      console.error('La geolocalización no es compatible con este navegador.');
+    }
+  };
+
+  useEffect(() => {
+    fetchDataAndMap();
+  }, [token]);
+
+  // Efecto para la carga de la API de Google Maps
+  useEffect(() => {
+    let script;
+
+    const initMap = () => {
+      // Lógica para inicializar el mapa
+    };
+
+    window.initMap = initMap;
+
+    if (typeof window.google === 'undefined') {
+      script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAgI1pg5OLY-CsKJDp7eTALNnA6ZXnkXlE&libraries=places&callback=initMap`;
+      script.defer = true;
+      document.head.appendChild(script);
+    } else {
+      // Si la API de Google Maps ya está cargada, inicializa el mapa directamente
+      initMap();
+    }
+
+    return () => {
+      if (script && !window.google) {
+        document.head.removeChild(script);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     const handleLocationUpdate = (position) => {
       const { latitude, longitude } = position.coords;
       console.log('Ubicación actualizada:', latitude, longitude);
       setUserLocation({ latitude, longitude });
-      // Realiza acciones con la ubicación actualizada, si es necesario
     };
 
     const handleLocationError = (error) => {
       console.error('Error al obtener la ubicación:', error);
-      // Agrega lógica de manejo de errores según tus necesidades
     };
 
     if (typeof window !== 'undefined') {
@@ -57,112 +155,6 @@ const ScreenTutor = () => {
     }
   }, []);
 
-  // Efecto para la carga de datos y el mapa
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/student-info', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-          credentials: 'include',
-        });
-
-        if (!response.ok) {
-          throw new Error(`No autorizado - Estado: ${response.status}`);
-        }
-
-        const studentInfo = await response.json();
-
-        if (Array.isArray(studentInfo)) {
-          console.log("Type of studentInfo:", typeof studentInfo);
-          console.log("Length of studentInfo:", studentInfo.length);
-          console.log("Student data from server:", studentInfo);
-          setData(studentInfo);
-        } else {
-          console.error("Invalid studentInfo received from the server:", studentInfo);
-        }
-      } catch (error) {
-        console.error('Error fetching student data:', error);
-        setIsSessionExpired(true);
-      }
-    };
-
-    fetchData();
-  }, [token]);
-
-  // Efecto para la carga de la API de Google Maps
-  useEffect(() => {
-    let script;
-
-    const initMap = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const mapOptions = {
-              center: { lat: position.coords.latitude, lng: position.coords.longitude },
-              zoom: 15,
-              styles: [
-                {
-                  featureType: 'all',
-                  elementType: 'geometry',
-                  stylers: [
-                    { visibility: 'simplified' },
-                    { hue: '#ff0000' },
-                    { saturation: -100 },
-                    { lightness: 10 },
-                    { gamma: 0.8 }
-                  ]
-                }
-              ],
-            };
-
-            const map = new window.google.maps.Map(document.getElementById('map'), {
-              ...mapOptions,
-              styles: [...mapOptions.styles],
-              background: 'transparent',
-            });
-
-            new window.google.maps.Marker({
-              position: { lat: position.coords.latitude, lng: position.coords.longitude },
-              map: map,
-              title: '¡Estás aquí!',
-            });
-          },
-          (error) => {
-            console.error('Error al obtener la ubicación:', error);
-          }
-        );
-      } else {
-        console.error('La geolocalización no es compatible con este navegador.');
-      }
-    };
-
-    window.initMap = initMap;
-
-    if (typeof window.google === 'undefined') {
-      script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAgI1pg5OLY-CsKJDp7eTALNnA6ZXnkXlE&libraries=places&callback=initMap`;
-      script.defer = true;
-      document.head.appendChild(script);
-
-      script.onload = () => {
-        if (script) {
-          document.head.removeChild(script);
-        }
-      };
-    }
-
-    return () => {
-      if (script) {
-        document.head.removeChild(script);
-      }
-    };
-  }, []);
-
-  // Efecto para la obtención de datos
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -204,7 +196,6 @@ const ScreenTutor = () => {
       console.log("Preconexión...");
     } catch (error) {
       console.error('Error during preconnection:', error);
-      // Agrega lógica de manejo de errores según tus necesidades
     }
   };
 
@@ -216,9 +207,11 @@ const ScreenTutor = () => {
   if (!data) {
     return <div>Loading...</div>;
   }
-  <div id="map" style={{ height: '400px', width: '100%' }}></div>
+
   return (
     <div>
+      <div id="map" style={{ height: 'calc(100vh - 40px)', width: '100%', position: 'relative' }}></div>
+      <div style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 1 }}>
       <div className="background-screen-tutor">
         <div className="header-icons">
           <div className='icon-settings'>
@@ -227,7 +220,7 @@ const ScreenTutor = () => {
             </Link>
           </div>
         </div>
-
+      </div>
         <div className="nav-bar">
           <span className="user-name">{data.length > 0 ? `${data[0].name} ${data[0].surname}` : ''}</span>
           <img src="/img/profile.png" alt="Foto de perfil" className="profile-pic" />
