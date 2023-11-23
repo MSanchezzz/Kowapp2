@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import '../../style/styles.css';
 import Head from 'next/head';
 import { useRouter } from 'next/navigation';
-import AutocompleteAddress from "../../../components/AutocompleteAddress"; // Asegúrate de tener la ruta correcta
+import AutocompleteAddress from "../../../components/AutocompleteAddress"; 
 import Link from 'next/link';
 
 const RegistrationFormTutor = () => {

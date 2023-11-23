@@ -10,21 +10,20 @@ const Attendance = () => {
     const [attendance, setAttendance] = useState(null);
     const [showConfirmation, setShowConfirmation] = useState(false);
 
-    const registerAttendance = async (childId, attendance) => {
+    const registerAttendance = async (studentId, present) => {
         try {
-            const dateTime = new Date().toISOString(); // Utiliza ISO format para la fecha y hora
             const response = await fetch('http://localhost:3001/api/attendance', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ childId, attendance, dateTime }),
+                body: JSON.stringify({ studentId, present }),
             });
 
             if (response.ok) {
                 const data = await response.json();
                 console.log(data.message);
-                setAttendance(attendance);
+                setAttendance(present);
                 setShowConfirmation(true);
             } else {
                 console.error('Error al registrar la asistencia:', response.statusText);
@@ -34,9 +33,16 @@ const Attendance = () => {
         }
     };
 
-    const handleAttendance = async (value) => {
-        // Llama a la función para registrar la asistencia en la base de datos
-        await registerAttendance('uniqueChildId', value);
+
+    const handleAttendance = async (present) => {
+        try {
+            // Suponiendo que tienes un ID de estudiante específico, reemplázalo con la lógica real para obtener el ID del estudiante.
+            const studentId = 1; // Reemplázalo con la lógica para obtener el ID del estudiante.
+
+            await registerAttendance(studentId, present);
+        } catch (error) {
+            console.error('Error al manejar la asistencia:', error);
+        }
     };
 
     const goBack = () => {
