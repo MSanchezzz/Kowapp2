@@ -75,7 +75,7 @@ h2 {
   flex-direction: column;
   position: relative;
   height: 100vh;
-  background: linear-gradient(to bottom, #25356D, #4565B0);
+  background: linear-gradient(to bottom, #4ab9ed, #4ab9ed);
 }
 
 .profile-section {
@@ -180,7 +180,7 @@ h2 {
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to bottom, #25356D, #4565B0);
+  background: linear-gradient(to bottom, #4ab9ed, #4ab9ed);
   border-top-left-radius: 30px; /* Bordes redondeados en la parte superior */
   border-top-right-radius: 30px;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3); /* Sombra suave */
@@ -330,7 +330,7 @@ h2 {
   justify-content: center;
   border-radius: 35px;
   color: white;
-  background-color: #FFA300;
+  background-color: #4ab9ed;
   box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.5);
   padding-top: 1rem;
   padding-bottom: 1rem;
