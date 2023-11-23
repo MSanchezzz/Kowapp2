@@ -4,42 +4,44 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from '../../../../style/asist.module.css';
 
+
+
+
 const Attendance = () => {
     const currentDate = new Date();
     const formattedDate = currentDate.toLocaleDateString();
     const [attendance, setAttendance] = useState(null);
     const [showConfirmation, setShowConfirmation] = useState(false);
 
-    const registerAttendance = async (studentId, present) => {
+    const registerAttendance = async (childId, attendance) => {
+        console.log('Registrando asistencia para childId:', childId, 'attendance:', attendance);
         try {
-            const response = await fetch('http://localhost:3001/api/attendance', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ studentId, present }),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                console.log(data.message);
-                setAttendance(present);
-                setShowConfirmation(true);
-            } else {
-                console.error('Error al registrar la asistencia:', response.statusText);
-            }
+          const dateTime = moment().format('YYYY-MM-DD HH:mm:ss');
+          
+          console.log('Realizando solicitud al servidor...');
+          const response = await fetch('http://localhost:3001/api/attendance', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ childId, attendance, dateTime }),
+          });
+      
+          if (response.ok) {
+            const data = await response.json();
+            console.log('Respuesta del servidor:', data.message);
+            setShowConfirmation(true);
+          } else {
+            const errorData = await response.json(); // Obtén el cuerpo del error si está presente
+            console.error('Error al registrar la asistencia:', response.statusText, errorData);
+          }
         } catch (error) {
-            console.error('Error al registrar la asistencia:', error);
+          console.error('Error al registrar la asistencia:', error);
         }
-    };
-
-
-    const handleAttendance = async (present) => {
+      };
+    const handleAttendance = async (childId, present) => {
         try {
-            // Suponiendo que tienes un ID de estudiante específico, reemplázalo con la lógica real para obtener el ID del estudiante.
-            const studentId = 1; // Reemplázalo con la lógica para obtener el ID del estudiante.
-
-            await registerAttendance(studentId, present);
+            await registerAttendance(childId, present);
         } catch (error) {
             console.error('Error al manejar la asistencia:', error);
         }
@@ -53,20 +55,25 @@ const Attendance = () => {
         setShowConfirmation(false);
     };
 
+
     return (
         <div className={styles.container}>
             <div className={styles.topLeft}>
                 <button onClick={goBack}>Volver</button>
             </div>
             <h1 className={styles.title}>Registro de Asistencia del día {formattedDate}</h1>
-            {attendance !== null ? (
-                <p>Asistencia registrada: {attendance ? 'Sí' : 'No'}</p>
-            ) : (
+
+            {/* Mostrar la asistencia registrada */}
+            {attendance !== null && (
+                <p>Asistencia registrada: {attendance ? 'Asistió' : 'No asistió'}</p>
+            )}
+
+            {!attendance && (
                 <div className={styles.buttonContainer}>
-                    <button onClick={() => handleAttendance(true)} className={styles.yesButton}>
+                    <button onClick={() => handleAttendance(1, true)} className={styles.yesButton}>
                         Sí
                     </button>
-                    <button onClick={() => handleAttendance(false)} className={styles.noButton}>
+                    <button onClick={() => handleAttendance(1, false)} className={styles.noButton}>
                         No
                     </button>
                 </div>

@@ -429,19 +429,21 @@ const registerAttendance = async (childId, attendance) => {
   try {
     const dateTime = moment().format('YYYY-MM-DD HH:mm:ss');
     
+    // Obtener el tutor asociado al estudiante
+    const tutorId = await getTutorIdForStudent(childId);
+
     console.log('Realizando solicitud al servidor...');
     const response = await fetch('http://localhost:3001/api/attendance', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ childId, attendance, dateTime }),
+      body: JSON.stringify({ tutorId, studentId: childId, attendance, dateTime }),
     });
 
     if (response.ok) {
       const data = await response.json();
       console.log('Respuesta del servidor:', data.message);
-      setAttendance(attendance);
       setShowConfirmation(true);
     } else {
       console.error('Error al registrar la asistencia:', response.statusText);
@@ -455,8 +457,8 @@ const handleAttendance = async (value) => {
   try {
     console.log('Manejando la asistencia con valor:', value);
     // Llama a la función para registrar la asistencia en la base de datos
-    const attendanceId = await registerAttendance('uniqueChildId', value);
-    console.log('Asistencia registrada con ID:', attendanceId);
+    await registerAttendance('uniqueChildId', value); // Cambié 'uniqueChildId' a childId si es necesario
+    console.log('Asistencia registrada con éxito');
     // Aquí puedes realizar cualquier acción adicional después de que la asistencia se haya registrado correctamente.
   } catch (error) {
     console.error('Error al manejar la asistencia:', error);
@@ -468,19 +470,46 @@ app.post("/api/attendance", async (req, res) => {
   try {
     const { childId, attendance, dateTime } = req.body;
 
-    // Aquí deberías tener la lógica para registrar la asistencia en la base de datos.
-    // Puedes llamar a tu función registerAttendance aquí.
+    // Verifica que childId y attendance estén presentes en la solicitud
+    if (!childId || !attendance) {
+      return res.status(400).json({ error: "childId y attendance son obligatorios." });
+    }
 
-    // Ejemplo de cómo podrías hacerlo con tu función registerAttendance:
-    // await registerAttendance(childId, attendance, dateTime);
+    // Verifica la existencia del estudiante en la base de datos
+    const studentExists = await db("students").where({ student_id: childId }).first();
 
-    // Envía una respuesta exitosa al cliente
-    res.status(200).json({ message: "Asistencia registrada con éxito" });
+    if (!studentExists) {
+      return res.status(400).json({ error: `El estudiante con ID ${childId} no existe.` });
+    }
+    // Realiza la inserción en la base de datos
+    const result = await db("asistencia").insert({
+      student_id: childId,
+      presente: attendance,
+      fecha: dateTime,
+    });
+
+    // Verifica el resultado y envía una respuesta
+    if (result.rowCount === 1) {
+      res.status(200).json({ message: "Asistencia registrada con éxito" });
+    } else {
+      res.status(500).json({ error: "Error al registrar la asistencia en la base de datos." });
+    }
   } catch (error) {
     console.error("Error al procesar la solicitud de asistencia:", error);
-    res.status(500).json({ error: 'Error interno del servidor.' });
+    res.status(500).json({ error: 'Error interno del servidor.', details: error.message });
   }
 });
+
+const getTutorIdForStudent = async (studentId) => {
+  // Aquí deberías tener la lógica para obtener la ID del tutor asociado al estudiante
+  // Puedes hacer una consulta a la base de datos para obtener esta información
+  // Reemplaza el siguiente código con la lógica específica de tu aplicación
+  const student = await db("students").select("fk_tutor_id").where({ student_id: studentId }).first();
+  return student ? student.fk_tutor_id : null;
+};
+
+
+
 
 
 
