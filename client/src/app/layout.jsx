@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
         <head>
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width" />
-          <title>Kids on Wheels</title>
+          <title>KOWAPP1</title>
           <link rel="icon" href="/img/kowappLogo.png" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter" />
         </head>

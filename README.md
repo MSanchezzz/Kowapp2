@@ -1,2 +1,2 @@
 # rekowapp
-kowapp 3
+kowapp 1
