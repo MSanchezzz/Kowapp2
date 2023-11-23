@@ -8,6 +8,7 @@ const verifyToken = require("./AuthMiddleware"); // Importa el middleware de aut
 const { Storage } = require("@google-cloud/storage");
 const fileUpload = require("express-fileupload");
 const jwt = require("jsonwebtoken");
+const moment = require('moment');
 const bodyParser = require('body-parser');
 const {
   createTcpPool,
@@ -424,45 +425,52 @@ app.post('/student-location', async (req, res) => {
 
 // asiatencia 
 //Funcion para el llamado de Base de datos implementacion asistencia
-const registerAttendance = async (childId, attendance) => {
-  console.log('Registrando asistencia para childId:', childId, 'attendance:', attendance);
+const registerAttendance = async (childId, attendance, setAttendance, setShowConfirmation) => {
   try {
-    const dateTime = moment().format('YYYY-MM-DD HH:mm:ss');
-    
-    // Obtener el tutor asociado al estudiante
-    const tutorId = await getTutorIdForStudent(childId);
+      const dateTime = moment().format('YYYY-MM-DD HH:mm:ss');
+     
+      // Obtener el tutor asociado al estudiante
+      const tutorId = await getTutorIdForStudent(childId);
 
-    console.log('Realizando solicitud al servidor...');
-    const response = await fetch('http://localhost:3001/api/attendance', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ tutorId, studentId: childId, attendance, dateTime }),
-    });
+      console.log('Realizando solicitud al servidor...');
+      const response = await fetch('http://localhost:3001/api/attendance', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ tutorId, studentId: childId, attendance, dateTime }),
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-      console.log('Respuesta del servidor:', data.message);
-      setShowConfirmation(true);
-    } else {
-      console.error('Error al registrar la asistencia:', response.statusText);
-    }
+      if (response.ok) {
+          const data = await response.json();
+          console.log('Respuesta del servidor:', data.message);
+          // Actualizar el estado del componente, si es necesario
+          if (setAttendance) {
+              setAttendance(attendance);
+          }
+          if (setShowConfirmation) {
+              setShowConfirmation(true);
+          }
+      } else {
+          console.error('Error al registrar la asistencia:', response.statusText);
+      }
   } catch (error) {
-    console.error('Error al registrar la asistencia:', error);
+      console.error('Error al registrar la asistencia:', error);
+      // Manejar el error, mostrar mensajes, etc.
   }
 };
 
+
 const handleAttendance = async (value) => {
   try {
-    console.log('Manejando la asistencia con valor:', value);
-    // Llama a la función para registrar la asistencia en la base de datos
-    await registerAttendance('uniqueChildId', value); // Cambié 'uniqueChildId' a childId si es necesario
-    console.log('Asistencia registrada con éxito');
-    // Aquí puedes realizar cualquier acción adicional después de que la asistencia se haya registrado correctamente.
+      console.log('Manejando la asistencia con valor:', value);
+      // Llama a la función para registrar la asistencia en la base de datos
+      await registerAttendance('uniqueChildId', value, setAttendance, setShowConfirmation); // Cambié 'uniqueChildId' a childId si es necesario
+      console.log('Asistencia registrada con éxito');
+      // Aquí puedes realizar cualquier acción adicional después de que la asistencia se haya registrado correctamente.
   } catch (error) {
-    console.error('Error al manejar la asistencia:', error);
-    // Aquí puedes realizar acciones específicas en caso de error, como mostrar un mensaje al usuario.
+      console.error('Error al manejar la asistencia:', error);
+      // Aquí puedes realizar acciones específicas en caso de error, como mostrar un mensaje al usuario.
   }
 };
 

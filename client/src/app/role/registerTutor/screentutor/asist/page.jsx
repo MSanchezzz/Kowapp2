@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from '../../../../style/asist.module.css';
+import moment from 'moment';
 
 
 
@@ -39,13 +40,21 @@ const Attendance = () => {
           console.error('Error al registrar la asistencia:', error);
         }
       };
-    const handleAttendance = async (childId, present) => {
-        try {
-            await registerAttendance(childId, present);
-        } catch (error) {
-            console.error('Error al manejar la asistencia:', error);
+      const handleAttendance = async () => {
+        // Validar que ambos IDs estén presentes y sean iguales
+        if (studentId && tutorId && studentId === tutorId) {
+          // Realizar la solicitud al servidor
+          try {
+            await registerAttendance(studentId);
+            console.log('Asistencia registrada exitosamente.');
+          } catch (error) {
+            console.error('Error al registrar la asistencia:', error);
+          }
+        } else {
+          console.error('Los IDs de estudiante y tutor deben ser iguales.');
         }
-    };
+      };
+      
 
     const goBack = () => {
         window.history.back();

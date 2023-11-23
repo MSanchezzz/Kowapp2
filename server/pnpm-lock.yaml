@@ -38,6 +38,12 @@ dependencies:
   knex:
     specifier: ^2.5.1
     version: 2.5.1(pg@8.11.3)
+  moment:
+    specifier: ^2.29.4
+    version: 2.29.4
+  momnet:
+    specifier: ^2.29.1
+    version: 2.29.1
   nodemailer:
     specifier: ^6.9.6
     version: 6.9.7
@@ -1722,6 +1728,14 @@ packages:
     resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
     engines: {node: '>=10'}
     hasBin: true
+    dev: false
+
+  /moment@2.29.4:
+    resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}
+    dev: false
+
+  /momnet@2.29.1:
+    resolution: {integrity: sha512-V+t7Caf5gYIhxMrFKhj0JQrOWFXrhzpv/SiZGKXDTGwZo485ysUx7sQ4f/2nO3YF6q0vEfQM/+wBnSHynxo5tQ==}
     dev: false
 
   /ms@2.0.0:
