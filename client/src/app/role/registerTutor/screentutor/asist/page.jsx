@@ -19,15 +19,13 @@ const Attendance = () => {
         try {
           const dateTime = moment().format('YYYY-MM-DD HH:mm:ss');
           
-          console.log('Realizando solicitud al servidor...');
           const response = await fetch('http://localhost:3001/api/attendance', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ childId, attendance, dateTime }),
+            body: JSON.stringify({ tutorId, studentId: childId, attendance, dateTime }),
           });
-      
           if (response.ok) {
             const data = await response.json();
             console.log('Respuesta del servidor:', data.message);
@@ -54,6 +52,7 @@ const Attendance = () => {
           console.error('Los IDs de estudiante y tutor deben ser iguales.');
         }
       };
+      
       
 
     const goBack = () => {

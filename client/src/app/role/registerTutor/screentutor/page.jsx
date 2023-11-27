@@ -232,11 +232,7 @@ const ScreenTutor = () => {
             </div>
           </div>
           <div className="user-action-buttons">
-            <div className="nav-button" onClick={handleConnection}>
-              <img src="/img/logokow.png" alt="Seguimiento" className="nav-icon" />
-              <div className="nav-button-text">Seguimiento</div>
-            </div>
-            <div className="nav-button" onClick={() => console.log(userLocation && userLocation.latitude, userLocation && userLocation.longitude)}>
+          <div className="nav-button" onClick={() => console.log(userLocation && userLocation.latitude, userLocation && userLocation.longitude)}>
               <img src="/img/logokow.png" alt="Ubicación" className="nav-icon" />
               <div className="nav-button-text">Obtener Ubicación</div>
             </div>

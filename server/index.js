@@ -476,7 +476,8 @@ const handleAttendance = async (value) => {
 
 app.post("/api/attendance", async (req, res) => {
   try {
-    const { childId, attendance, dateTime } = req.body;
+    const { student_id, attendance, dateTime } = req.body;
+
 
     // Verifica que childId y attendance estén presentes en la solicitud
     if (!childId || !attendance) {
@@ -494,11 +495,11 @@ app.post("/api/attendance", async (req, res) => {
       student_id: childId,
       presente: attendance,
       fecha: dateTime,
-    });
-
-    // Verifica el resultado y envía una respuesta
+    }).returning('*');  // Devuelve todas las columnas después de la inserción
+    
     if (result.rowCount === 1) {
-      res.status(200).json({ message: "Asistencia registrada con éxito" });
+      const insertedRow = result[0];
+      res.status(200).json({ message: "Asistencia registrada con éxito", insertedRow });
     } else {
       res.status(500).json({ error: "Error al registrar la asistencia en la base de datos." });
     }
