@@ -119,9 +119,10 @@ const ScreenTutor = () => {
       script = document.createElement('script');
       script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAgI1pg5OLY-CsKJDp7eTALNnA6ZXnkXlE&libraries=places&callback=initMap`;
       script.defer = true;
+      script.onload = initMap; // Llama a initMap cuando la API se haya cargado
       document.head.appendChild(script);
     } else {
-      // Si la API de Google Maps ya está cargada, inicializa el mapa directamente
+      // Si ya está cargado, inicializa el mapa directamente
       initMap();
     }
 

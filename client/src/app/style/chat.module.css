@@ -29,7 +29,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #ffa300;
+  background-color: #0049f3;
   color: black;
   padding: 10px;
   margin-bottom: 0;
@@ -67,7 +67,7 @@
 
 .senderName {
   flex-grow: 1; /* Permite que el input crezca y llene el espacio */
-  border: 2px solid #ddd; /* Borde más definido para el input */
+  border: 2px solid #b04595; /* Borde más definido para el input */
   border-radius: 20px; /* Bordes redondeados para el input */
   padding: 10px;
   margin-right: 10px; /* Espacio entre el input y el botón */
@@ -76,7 +76,7 @@
 
 .senderBotton {
   display: flex;
-  background-color: #ffa300;
+  background-color: #2852b3;
   border: none; /* Elimina el borde del botón */
   border-radius: 10px; /* Bordes redondeados para el botón */
   padding: 10px 10px; /* Espacio interno para el botón */
@@ -90,14 +90,14 @@
 /* Estilos para el encabezado y el pie de página del chat */
 .chatFooter,
 .chatHeader {
-  background-color: #333;
+  background-color: rgb(235, 7, 185);
   color: #fff;
   padding: 10px 20px; /* Espacio interno para el header y footer */
 }
 
 
 .unionBotton1 {
-  background-color: #ffa300;
+  background-color: #0049f3;
   margin-left: 10px;
   padding: 5px;
   border-radius: 10px;
@@ -107,7 +107,7 @@
 }
 
 .unionBotton2 {
-  background-color: #ffa300;
+  background-color: #f30000;
   margin-left: 10px;
   padding: 5px;
   border-radius: 10px;
@@ -128,6 +128,6 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #ffa300;
+  background-color: #0049f3;
   color: black;
 }

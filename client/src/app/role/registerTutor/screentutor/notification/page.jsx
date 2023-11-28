@@ -4,6 +4,8 @@ import { io } from 'socket.io-client';
 import chatStyle from '../../../../style/chat.module.css';
 import { useRouter } from 'next/navigation';
 
+
+
 const { v4: uuidv4 } = require('uuid');
 
 const Chat = () => {
@@ -65,13 +67,13 @@ const Chat = () => {
         <button className={chatStyle.unionBotton1} onClick={handleLogin}>Unirse</button>
         <button className={chatStyle.unionBotton2} onClick={backToProfile}>Salir</button>
       </div>
-      <title> Chat en vivo </title>
+      <title> Chat </title>
       <footer className={chatStyle.chatFooter}>
         <div className={chatStyle.centerContent}>
-          <p className={chatStyle.p}>Chat en vivo</p>
+          <p className={chatStyle.p}>En vivo</p>
           <img
             src="/img/button.png"
-            alt="chat en vivo"
+            alt="en vivo"
             style={{ width: "15px", marginLeft: "5px" }}
           />
         </div>

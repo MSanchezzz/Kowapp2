@@ -181,7 +181,7 @@ const ProfileTutor = () => {
           </div>
         )}
         <p className='nombre-perfil-usuario'>{`${userData.name}`}</p>
-        <p className='nombre-perfil-usuario'>{`${userData.surname} (${userData.id})`}</p>
+        <p className='nombre-perfil-usuario'>{`${userData.surname}`}</p>
         <div className='profile-tutor-name'>
           <img className='logo-kowapp-perfil-tutor'src="/img/logokow.png" alt="logokowprofile" height={32} width={32}/>
         </div>
@@ -190,7 +190,7 @@ const ProfileTutor = () => {
         <div class='info-container'>
           <div class='info'>
             <span class='subtitle-info-profile'>Estudiantes:</span>
-            <span class='description'>1</span>
+            <span class='description'>2</span>
           </div>
           <div class='info'>
             <span class='subtitle-info-profile'>Calificación:</span>
@@ -201,7 +201,7 @@ const ProfileTutor = () => {
           </div>
           <div class='info'>
             <span class='subtitle-info-profile'>Cuenta:</span>
-            <span class='description'>Simple</span>
+            <span class='description'>Premium</span>
           </div>
         </div>
 
