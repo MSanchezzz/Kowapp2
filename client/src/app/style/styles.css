@@ -1280,7 +1280,7 @@ input.error {
 }
 
 .modal button {
-  background-color: #19254f;
+  background-color: #2145c9;
   color: white;
   border: none;
   cursor: pointer;
@@ -1288,7 +1288,7 @@ input.error {
 }
 
 .modal button:hover {
-  background-color: #FFA300;
+  background-color: rgb(124, 86, 19);
 }
 
 @keyframes fadeIn {

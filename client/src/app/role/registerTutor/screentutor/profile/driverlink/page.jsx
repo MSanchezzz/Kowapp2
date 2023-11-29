@@ -144,8 +144,10 @@ const DriverLink = () => {
                 </div>
             )}
             <div className='search-driver-list-qr-button-div'>
-                <button className='search-driver-list-qr-button'>Escanear QR</button>
+            <Link href='/role/registerTutor/screentutor/profile/document'>
+                <button className='search-driver-list-qr-button'>Documentacion</button>
                 <img className='qr-scan-image' src="/img/qr-scan.png" alt="QR" />
+                </Link>
             </div>
             {/* <Modal isOpen={isSessionExpired} onRequestClose={closeModal} /> */}
         </div>
